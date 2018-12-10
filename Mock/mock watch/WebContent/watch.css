@@ -1,0 +1,18 @@
+.center{
+	text-align:center;
+}
+.right{
+	text-align:right
+}
+.font-size{
+	font-size:x-large;
+}
+.large{
+	font-size:large;
+}
+.width{
+	max-width:100%;
+}
+.height{
+	max-height:100%;
+}
