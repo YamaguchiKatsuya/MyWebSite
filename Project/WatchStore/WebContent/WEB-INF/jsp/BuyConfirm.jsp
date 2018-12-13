@@ -16,32 +16,49 @@
 <body>
 <nav class="#2e7d32 green darken-3">
     <div class="nav-wrapper">
-      <a href="#!" class="brand-logo"><i class="large material-icons">store</i>勝時計店</a>
+      <a href="TopLoginServlet?id=${userInfo.id}" class="brand-logo"><i class="large material-icons">store</i>勝時計店</a>
       <ul class="right hide-on-med-and-down">
-        <li><a href="sass.html"><i class="material-icons">watch</i></a></li>
-        <li><a href="badges.html"><i class="material-icons">account_circle</i></a></li>
+        <li><a href="SearchServlet"><i class="material-icons">watch</i></a></li>
+        <c:if test="${userInfo==null}" >
+        <li><a href="LoginServlet"><i class="material-icons">vpn_key</i></a></li>
+        </c:if>
+        <c:if test="${userInfo!= null}" >
+        <li><a href="UserdateDetailServlet?id=${userInfo.id}"><i class="material-icons">account_circle</i></a></li>
+        </c:if>
         <li><a href="collapsible.html"><i class="material-icons">shopping_cart</i></a></li>
-        <li><a href="collapsible.html"><i class="material-icons">add</i></a></li>
-      </ul>
+        <li><a href="NewuserServlet"><i class="material-icons">add</i></a></li>
+        <c:if test="${userInfo!= null}" >
+        <li>${userInfo.user_name} さん </li>
+        </c:if>
+     </ul>
     </div>
   </nav>
+  <li class="right"><a href="LogoutServlet">ログアウト</a></li>
  <div class="container">
 <h3 class="center">購入手続き</h3>
-<br>
-<br>
-<div class="row">
-        <div class="input-field col s12">
-          <input disabled value="I am not editable" id="disabled" type="text" class="validate">
-          <label for="disabled">購入点数</label>
-        </div>
-      </div>
-      <div class="row">
-        <div class="input-field col s12">
-          <input disabled value="I am not editable" id="disabled" type="text" class="validate">
-          <label for="disabled">商品合計額</label>
-        </div>
-      </div>
-      <div class="input-field col s12">
+
+			<table class="highlight">
+        <thead>
+          <tr>
+              <th>商品名</th>
+              <th>単価</th>
+              <th>小計</th>
+          </tr>
+        </thead>
+
+        <tbody>
+         <c:forEach var="item" items="${cart}"  varStatus="status" >
+          <tr>
+            <td>${item.itemName}</td>
+            <td>${item.price}</td>
+            <td>${item.price}</td>
+          </tr>
+          </c:forEach>
+          <tr>
+            <td></td>
+            <td></td>
+            <td>
+           <div class="input-field col s12">
     <select>
       <option value="" disabled selected></option>
       <option value="1">通常配送</option>
@@ -50,45 +67,9 @@
     </select>
     <label>配送方法</label>
   </div>
- <div class="row">
-		<div class="col s3">
-		<div class="card">
-		<div class="card-image">
-		<a href="ItemDetailServlet?id=${item.id}"><img src="img/GW.jpg"height="400"></a>
-		</div>
-		</div>
-			<div class="center">${item.itemName}</div>
-			<div class="center">${item.price}円</div>
-
-		</div>
-		<div class="col s3">
-		<div class="card">
-		<div class="card-image">
-		<a href="ItemDetailServlet?id=${item.id}"><img src="img/timex.jpg"height="400"></a>
-		</div>
-		</div>
-			<div class="center">${item.itemName}</div>
-			<div class="center">${item.price}円</div>
-
-		</div>
-		<div class="col s3">
-		<div class="card">
-		<div class="card-image">
-		<a href="ItemDetailServlet?id=${item.id}"><img src="img/paulsmith2.jpg"height="400"></a>
-		</div>
-		</div>
-			<div class="center">${item.itemName}</div>
-			<div class="center">${item.price}円</div>
-
-				</div>
-<br>
-<br>
-<br>
-				<div class="col s4 left">
-				<a class="waves-effect waves-light btn-large">戻る</a>
-			</div>
-				<div class="col s4 right">
-				<a class="waves-effect waves-light btn-large"><i class="material-icons left">shopping_basket</i>購入</a>
-			</div>
+  </td>
+  </tr>
+        </tbody>
+      </table>
 </body>
 </html>

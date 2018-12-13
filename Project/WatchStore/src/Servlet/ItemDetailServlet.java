@@ -1,6 +1,7 @@
 package Servlet;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -53,8 +54,23 @@ public class ItemDetailServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		HttpSession session = request.getSession();
+
+		String id = request.getParameter("id");
+		System.out.println(id);
+		ItemDetaildao ItemDetaildao = new ItemDetaildao();
+		itemdate item = ItemDetaildao.findById(id);
+
+		ArrayList<itemdate> cart = (ArrayList<itemdate>) session.getAttribute("cart");
+		if (cart == null) {
+			cart = new ArrayList<itemdate>();
+		}
+		//カートに商品を追加。
+		cart.add(item);
+		//カート情報更新
+		session.setAttribute("cart", cart);
+
+		response.sendRedirect("CartServlet");
 	}
 
 }

@@ -33,7 +33,7 @@ public class Itemdao {
                 int id = rs.getInt("id");
                 String itemName = rs.getString("item_name");
                 String detail = rs.getString("detail");
-                int price = rs.getInt("price");
+                String price = rs.getString("price");
                 String fileName = rs.getString("file_name");
                 String createDate = rs.getString("create_date");
                 String updateDate = rs.getString("update_date");
@@ -97,7 +97,7 @@ public class Itemdao {
                 int id = rs.getInt("id");
                 String itemname = rs.getString("item_name");
                 String Detail = rs.getString("detail");
-                int price = rs.getInt("price");
+                String price = rs.getString("price");
                 String fileName = rs.getString("file_name");
                 String createDate = rs.getString("create_date");
                 String updateDate = rs.getString("update_date");
@@ -159,7 +159,7 @@ public class Itemdao {
                 int id = rs.getInt("id");
                 String itemname = rs.getString("item_name");
                 String Detail = rs.getString("detail");
-                int price = rs.getInt("price");
+                String price = rs.getString("price");
                 String fileName = rs.getString("file_name");
                 String createDate = rs.getString("create_date");
                 String updateDate = rs.getString("update_date");
@@ -183,4 +183,50 @@ public class Itemdao {
 	    }
 	    return itemList;
 	}
+	public List<itemdate> cart(String Id) {
+        Connection conn = null;
+        List<itemdate> itemList = new ArrayList<itemdate>();
+
+        try {
+            // データベースへ接続
+            conn = DBManeger.getConnection();
+
+         // SELECT文を準備
+            // TODO: 未実装：管理者以外を取得するようSQLを変更する
+            String sql = "SELECT * FROM w_item WHERE id = "+Id;
+
+             // SELECTを実行し、結果表を取得
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(sql);
+
+            // 結果表に格納されたレコードの内容を
+            // Employeeインスタンスに設定し、ArrayListインスタンスに追加
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String itemName = rs.getString("item_name");
+                String detail = rs.getString("detail");
+                String price = rs.getString("price");
+                String fileName = rs.getString("file_name");
+                String createDate = rs.getString("create_date");
+                String updateDate = rs.getString("update_date");
+                itemdate item = new itemdate(id, itemName, detail, price, fileName, createDate, updateDate);
+
+                itemList.add(item);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        } finally {
+            // データベース切断
+            if (conn != null) {
+                try {
+                    conn.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                    return null;
+                }
+            }
+        }
+        return itemList;
+}
 }

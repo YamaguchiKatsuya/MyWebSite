@@ -11,31 +11,26 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="watch.css">
-<title>トップページ(ログイン済)</title>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-<script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
-
-<script type="text/javascript">
-        $(document).ready(function(){
-            $('.slider').bxSlider({
-                auto: true,
-                pause: 5000,
-            });
-        });
-</script>
+<title>トップページ</title>
 
 </head>
 <body>
 <nav class="#2e7d32 green darken-3">
     <div class="nav-wrapper">
-      <a href="#!" class="brand-logo"><i class="large material-icons">store</i>勝時計店</a>
+      <a href="TopLoginServlet?id=${userInfo.id}" class="brand-logo"><i class="large material-icons">store</i>勝時計店</a>
       <ul class="right hide-on-med-and-down">
         <li><a href="SearchServlet"><i class="material-icons">watch</i></a></li>
+        <c:if test="${userInfo==null}" >
+        <li><a href="LoginServlet"><i class="material-icons">vpn_key</i></a></li>
+        </c:if>
+        <c:if test="${userInfo!= null}" >
         <li><a href="UserdateDetailServlet?id=${userInfo.id}"><i class="material-icons">account_circle</i></a></li>
-        <li><a href="collapsible.html"><i class="material-icons">shopping_cart</i></a></li>
-        <li><a href="NewuserServlet"><i class="material-icons">add</i></a></li>
+        </c:if>
+        <li><a href="CartServlet"><i class="material-icons">shopping_cart</i></a></li>
+        <li><a href="NewConfirmServlet"><i class="material-icons">add</i></a></li>
+        <c:if test="${userInfo!= null}" >
         <li>${userInfo.user_name} さん </li>
+        </c:if>
      </ul>
     </div>
   </nav>
@@ -50,11 +45,14 @@
 <div class="center large">是非、ご自身に合う最高の一本を探してみてください。</div>
 <br>
 <br>
-<div class="slider">
-<img src="img/GW.jpg" height="539" alt="">
-<img src="gazou2.jpg" width="500" height="300" alt="">
-<img src="gazou3.jpg" width="500" height="300" alt="">
-<img src="gazou4.jpg" width="500" height="300" alt="">
+<div class="cp_cssslider center">
+	<div class="cp_slidewrapper">
+		<div class="cp_slide_item"><img src="img/gucci.jpg" class="slideheight"></div>
+		<div class="cp_slide_item"><img src="img/iwc.jpg"class="slideheight"></div>
+		<div class="cp_slide_item"><img src="img/paulsmith.jpg"class="slideheight"></div>
+		<div class="cp_slide_item"><img src="img/tag.jpg"class="slideheight"></div>
+		<div class="cp_slide_item"><img src="img/timex.jpg"class="slideheight"></div>
+	</div>
 </div>
 <div class="center font-size">取り扱いブランド</div>
 <div class="row">
@@ -120,6 +118,7 @@
 		<div class="card">
 		<div class="card-image">
 		<img class="width height" src="http://watch-monster.com/system/articles/images/000/001/231/medium/7ee29225-9eaf-4f0e-b41c-56ac7f2770a2.gif?1466912345" alt="">
+		</div>
 		</div>
 		</div>
 		</div>

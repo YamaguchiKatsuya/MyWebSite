@@ -10,7 +10,7 @@ import model.itemdate;
 
 
 public class NewItemdao {
-	public void newItem(String itemName,String detail,int price,String fileName) throws SQLException {
+	public void newItem(String itemName,String detail,String price,String fileName) throws SQLException {
 
 		Connection conn = null;
 	    List<itemdate> userList = new ArrayList<itemdate>();
@@ -27,7 +27,7 @@ public class NewItemdao {
 	        PreparedStatement pStmt = conn.prepareStatement(sql);
 	        pStmt.setString(1, itemName);
 	        pStmt.setString(2, detail);
-	        pStmt.setInt(3, price);
+	        pStmt.setString(3, price);
 	        pStmt.setString(4, fileName);
 	        pStmt.executeUpdate();
 	        // 結果表に格納されたレコードの内容を

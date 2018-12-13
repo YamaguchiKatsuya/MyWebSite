@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page contentType="text/html; charset=UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,15 +17,24 @@
 <body>
 <nav class="#2e7d32 green darken-3">
     <div class="nav-wrapper">
-      <a href="TopServlet" class="brand-logo"><i class="large material-icons">store</i>勝時計店</a>
+      <a href="TopLoginServlet?id=${userInfo.id}" class="brand-logo"><i class="large material-icons">store</i>勝時計店</a>
       <ul class="right hide-on-med-and-down">
         <li><a href="SearchServlet"><i class="material-icons">watch</i></a></li>
-        <li><a href="LoginServlet"><i class="material-icons">account_circle</i></a></li>
+        <c:if test="${userInfo==null}" >
+        <li><a href="LoginServlet"><i class="material-icons">vpn_key</i></a></li>
+        </c:if>
+        <c:if test="${userInfo!= null}" >
+        <li><a href="UserdateDetailServlet?id=${userInfo.id}"><i class="material-icons">account_circle</i></a></li>
+        </c:if>
         <li><a href="collapsible.html"><i class="material-icons">shopping_cart</i></a></li>
         <li><a href="NewuserServlet"><i class="material-icons">add</i></a></li>
-      </ul>
+        <c:if test="${userInfo!= null}" >
+        <li>${userInfo.user_name} さん </li>
+        </c:if>
+     </ul>
     </div>
   </nav>
+  <li class="right"><a href="LogoutServlet">ログアウト</a></li>
 <div class="container">
 <h4>新規登録</h4>
 <c:if test="${errMsg != null}" >
@@ -32,13 +42,18 @@
 		  ${errMsg}
 		  </div>
 		  </c:if>
-<form action="NewuserServlet" method="post">
+<form action="NewConfirmServlet" method="post">
 <div class="row">
     <div class="col s12">
       <div class="row">
         <div class="input-field col s12">
           <i class="material-icons prefix">edit</i>
+          <c:if test="${d==null}" >
           <input type="text" name="userName" class="autocomplete">
+          </c:if>
+          <c:if test="${d!=null}" >
+          <input type="text" name="userName" class="autocomplete" value="${d.user_name }">
+          </c:if>
           <label for="autocomplete-input">ユーザ名</label>
         </div>
       </div>
@@ -49,7 +64,12 @@
       <div class="row">
         <div class="input-field col s12">
           <i class="material-icons prefix">edit</i>
+          <c:if test="${d==null}" >
           <input type="text" name="address" class="autocomplete">
+          </c:if>
+          <c:if test="${d!=null}" >
+          <input type="text" name="address" class="autocomplete" value="${d.address }">
+          </c:if>
           <label for="autocomplete-input">住所</label>
         </div>
       </div>
@@ -59,8 +79,13 @@
     <div class="col s12">
       <div class="row">
         <div class="input-field col s12">
-          <i class="material-icons prefix">edit</i>
+          <i class="material-icons prefix">date_range</i>
+          <c:if test="${d==null}" >
           <input type="date" name="birthDate" class="autocomplete">
+          </c:if>
+          <c:if test="${d!=null}" >
+          <input type="date" name="birthDate" class="autocomplete" value="${d.birth_date }">
+          </c:if>
           <label for="autocomplete-input">生年月日</label>
         </div>
       </div>

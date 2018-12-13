@@ -16,15 +16,24 @@
 <body>
 <nav class="#2e7d32 green darken-3">
     <div class="nav-wrapper">
-      <a href="TopServlet" class="brand-logo"><i class="large material-icons">store</i>勝時計店</a>
+      <a href="TopLoginServlet?id=${userInfo.id}" class="brand-logo"><i class="large material-icons">store</i>勝時計店</a>
       <ul class="right hide-on-med-and-down">
-       <li><a href="SearchServlet"><i class="material-icons">watch</i></a></li>
-        <li><a href="LoginServlet"><i class="material-icons">account_circle</i></a></li>
+        <li><a href="SearchServlet"><i class="material-icons">watch</i></a></li>
+        <c:if test="${userInfo==null}" >
+        <li><a href="LoginServlet"><i class="material-icons">vpn_key</i></a></li>
+        </c:if>
+        <c:if test="${userInfo!= null}" >
+        <li><a href="UserdateDetailServlet?id=${userInfo.id}"><i class="material-icons">account_circle</i></a></li>
+        </c:if>
         <li><a href="collapsible.html"><i class="material-icons">shopping_cart</i></a></li>
         <li><a href="NewuserServlet"><i class="material-icons">add</i></a></li>
-      </ul>
+        <c:if test="${userInfo!= null}" >
+        <li>${userInfo.user_name} さん </li>
+        </c:if>
+     </ul>
     </div>
   </nav>
+  <li class="right"><a href="LogoutServlet">ログアウト</a></li>
  <div class="container">
 <h3 class="center">商品検索</h3>
 <br>
@@ -59,7 +68,7 @@
 
 
   <div class="col s4 right">
-				<button class="btn  waves-effect waves-light  col s6 offset-s4"
+				<button class="btn  waves-effect waves-light  col s8 offset-s4"
 					type="submit" name="action">検索</button>
 			</div>
 </form>
@@ -71,11 +80,11 @@
 		<div class="col s3">
 		<div class="card">
 		<div class="card-image">
-		<a href="ItemDetailServlet?id=${item.id}"><img src="img/${item.fileName}"height="400"></a>
+		<a href="ItemDetailServlet?id=${item.id}"><img src="img/${item.fileName}"class="searchheight"></a>
 		</div>
 		</div>
-			<div class="center">${item.itemName}</div>
-			<div class="center">${item.price}円</div>
+			<div class="center large">${item.itemName}</div>
+			<div class="center large">${item.price}円</div>
 		</div>
 				</c:forEach>
 				</div>

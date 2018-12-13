@@ -1,13 +1,11 @@
 package model;
 
-import java.util.Date;
-
 public class userdate {
 
 	private int id;
 	private String user_name;
 	private String address;
-	private Date birth_date;
+	private String birth_date;
 	private String password;
 	private String create_date;
 	private String update_date;
@@ -15,7 +13,7 @@ public class userdate {
 
 
 
-	public userdate(String user_name, String address, Date birth_date, String password) {
+	public userdate(String user_name, String address, String birth_date, String password) {
 		super();
 		this.user_name = user_name;
 		this.address = address;
@@ -36,7 +34,7 @@ public class userdate {
 	public userdate() {
 		super();
 	}
-	public userdate(int id, String user_name, String address, Date birth_date, String password, String create_date,
+	public userdate(int id, String user_name, String address, String birth_date, String password, String create_date,
 			String update_date) {
 		super();
 		this.id = id;
@@ -65,10 +63,10 @@ public class userdate {
 	public void setAddress(String address) {
 		this.address = address;
 	}
-	public Date getBirth_date() {
+	public String getBirth_date() {
 		return birth_date;
 	}
-	public void setBirth_date(Date birth_date) {
+	public void setBirth_date(String birth_date) {
 		this.birth_date = birth_date;
 	}
 	public String getPassword() {

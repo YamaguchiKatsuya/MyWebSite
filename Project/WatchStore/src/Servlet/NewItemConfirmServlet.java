@@ -1,30 +1,30 @@
 package Servlet;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import dao.NewItemdao;
 import model.itemdate;
 
 /**
- * Servlet implementation class NewitemServlet
+ * Servlet implementation class NewItemConfirmServlet
  */
-@WebServlet("/NewitemServlet")
-@MultipartConfig(location="/tmp", maxFileSize=1048576)
-public class NewitemServlet extends HttpServlet {
+@WebServlet("/NewItemConfirmServlet")
+public class NewItemConfirmServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public NewitemServlet() {
+    public NewItemConfirmServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -35,15 +35,13 @@ public class NewitemServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
 
-		if(session.getAttribute("i")!=null){
-			itemdate d = (itemdate) session.getAttribute("i");
+		itemdate i = (itemdate) session.getAttribute("item");
 
-			request.setAttribute("d", d);
+		request.setAttribute("i", i);
 
-			session.removeAttribute("i");
-		}
+		session.removeAttribute("item");
 
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF//jsp/itemnew.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF//jsp/NewItemConfirm.jsp");
 		dispatcher.forward(request, response);
 		}
 
@@ -51,33 +49,40 @@ public class NewitemServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("UTF-8");
 
-        // リクエストパラメータの取得
-        String itemName = request.getParameter("item_name");
+		String itemName = request.getParameter("item_name");
         String detail = request.getParameter("detail");
         String price = request.getParameter("price");
         String fileName = request.getParameter("file_name");
+        String MyAction = request.getParameter("MySubmit");
 
+        if(MyAction.equals("action")){
 
-        if (itemName.equals("")||detail.equals("")||price.equals("")||fileName.equals("")){
-			// リクエストスコープにエラーメッセージをセット
-		request.setAttribute("errMsg", "入力された内容は正しくありません。");
+		NewItemdao newitemdao = new NewItemdao();
+		try {
+			newitemdao.newItem(itemName,detail,price,fileName);
 
+		} catch (SQLException e) {
 
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/itemnew.jsp");
+			request.setAttribute("errMsg", "その商品名は既に登録されています。");
+
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/NewItemConfirm.jsp");
 			dispatcher.forward(request, response);
 			return;
+
 		}
 
-		itemdate item=new itemdate(itemName,detail,price,fileName);
+		response.sendRedirect("NewItemConnectionServlet");
 
+        }
+        if(MyAction.equals("return")){
 
-		HttpSession session = request.getSession();session.setAttribute("item", item);
+        	itemdate i=new itemdate(itemName,detail,price,fileName);
 
+        	HttpSession session = request.getSession();session.setAttribute("i", i);
 
-        response.sendRedirect("NewItemConfirmServlet");
-
+        	response.sendRedirect("NewitemServlet");
+        }
 
 	}
 

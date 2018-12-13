@@ -1,7 +1,6 @@
 package dao;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -77,7 +76,7 @@ public class Logindao {
 	                int id = rs.getInt("id");
 	                String userName = rs.getString("user_name");
 	                String address = rs.getString("address");
-	                Date birthDate = rs.getDate("birth_date");
+	                String birthDate = rs.getString("birth_date");
 	                String Password = rs.getString("password");
 	                String createDate = rs.getString("create_date");
 	                String updateDate = rs.getString("update_date");
@@ -140,7 +139,7 @@ public class Logindao {
 		            int id = rs.getInt("id");
 		            String  UserName = rs.getString("user_name");
 		            String Address = rs.getString("address");
-		            Date birthDate = rs.getDate("birth_date");
+		            String birthDate = rs.getString("birth_date");
 		            String Password = rs.getString("password");
 		            String createDate = rs.getString("create_date");
 		            String updateDate = rs.getString("update_date");

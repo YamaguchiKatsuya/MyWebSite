@@ -5,13 +5,20 @@ public class itemdate {
 	private int id;
 	private String itemName;
 	private String detail;
-	private int price;
+	private String price;
 	private String fileName;
 	private String createDate;
 	private String updateDate;
 
 
-	public itemdate(int id, String itemName, String detail, int price, String fileName, String createDate,
+	public itemdate(String itemName, String detail, String price, String fileName) {
+		super();
+		this.itemName = itemName;
+		this.detail = detail;
+		this.price = price;
+		this.fileName = fileName;
+	}
+	public itemdate(int id, String itemName, String detail, String price, String fileName, String createDate,
 			String updateDate) {
 		super();
 		this.id = id;
@@ -25,7 +32,7 @@ public class itemdate {
 	public itemdate() {
 		super();
 	}
-	public itemdate(int id, String itemName, String detail, int price, String fileName) {
+	public itemdate(int id, String itemName, String detail, String price, String fileName) {
 		super();
 		this.id = id;
 		this.itemName = itemName;
@@ -52,10 +59,10 @@ public class itemdate {
 	public void setDetail(String detail) {
 		this.detail = detail;
 	}
-	public int getPrice() {
+	public String getPrice() {
 		return price;
 	}
-	public void setPrice(int price) {
+	public void setPrice(String price) {
 		this.price = price;
 	}
 	public String getFileName() {

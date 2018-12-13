@@ -13,9 +13,11 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.xml.bind.DatatypeConverter;
 
 import dao.newdao;
+import model.userdate;
 
 /**
  * Servlet implementation class NewuserServlet
@@ -36,9 +38,17 @@ public class NewuserServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF//jsp/userdatenew.jsp");
+		HttpSession session = request.getSession();
+
+		userdate u = (userdate) session.getAttribute("user");
+
+		request.setAttribute("u", u);
+
+		session.removeAttribute("user");
+
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF//jsp/newconfirm.jsp");
 		dispatcher.forward(request, response);
-		}
+	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
@@ -51,27 +61,11 @@ public class NewuserServlet extends HttpServlet {
         String address = request.getParameter("address");
         String birthDate = request.getParameter("birthDate");
         String pass = request.getParameter("pass");
-        String passk = request.getParameter("passk");
-        if (!pass.equals(passk)) {
-			// リクエストスコープにエラーメッセージをセット
-			request.setAttribute("errMsg", "入力された内容は正しくありません。");
+        String MyAction = request.getParameter("MySubmit");
 
+        if(MyAction.equals("action")){
 
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/userdatenew.jsp");
-			dispatcher.forward(request, response);
-			return;
-		}
-
-        if (userName.equals("")||pass.equals("")||passk.equals("")||address.equals("")||birthDate.equals("")){
-			// リクエストスコープにエラーメッセージをセット
-		request.setAttribute("errMsg", "入力された内容は正しくありません。");
-
-
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/userdatenew.jsp");
-			dispatcher.forward(request, response);
-			return;
-		}
-      //ハッシュを生成したい元の文字列
+        	//ハッシュを生成したい元の文字列
         String source = "pass";
         //ハッシュ生成前にバイト配列に置き換える際のCharset
         Charset charset = StandardCharsets.UTF_8;
@@ -114,7 +108,18 @@ public class NewuserServlet extends HttpServlet {
 
 
 
-        response.sendRedirect("TopServlet");
+        response.sendRedirect("TopLoginServlet");
+        }
+
+        if(MyAction.equals("return")){
+
+        	userdate d=new userdate(userName, address, birthDate, pass);
+
+        	HttpSession session = request.getSession();session.setAttribute("d", d);
+
+        	response.sendRedirect("NewConfirmServlet");
+        }
+
 
 
 

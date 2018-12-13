@@ -28,7 +28,7 @@ public class ItemDetaildao {
             int id = rs.getInt("id");
             String itemName = rs.getString("item_name");
             String detail = rs.getString("detail");
-            int price = rs.getInt("price");
+            String price = rs.getString("price");
             String fileName = rs.getString("file_name");
             String createDate = rs.getString("create_date");
             String updateDate = rs.getString("update_date");

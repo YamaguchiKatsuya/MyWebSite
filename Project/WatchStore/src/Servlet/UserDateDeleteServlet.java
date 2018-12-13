@@ -43,7 +43,7 @@ public class UserDateDeleteServlet extends HttpServlet {
 		Deletedao deletedao = new Deletedao();
 		deletedao.deleteId(id);
 
-		response.sendRedirect("TopServlet");
+		response.sendRedirect("ListServlet");
 
 	}
 
@@ -56,7 +56,7 @@ public class UserDateDeleteServlet extends HttpServlet {
 		Deletedao deletedao = new Deletedao();
 		deletedao.deleteId(id);
 
-		response.sendRedirect("TopServlet");
+		response.sendRedirect("ListServlet");
 
 	}
 
