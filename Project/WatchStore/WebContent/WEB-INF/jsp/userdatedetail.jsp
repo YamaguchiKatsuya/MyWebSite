@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -100,18 +101,15 @@
 								</tr>
 							</thead>
 							<tbody>
-							<c:forEach var="BuyDataBeans" items="${dataList}" >
+							<c:forEach var="buydate" items="${List}" >
 
 								<tr>
-									<td class="center"><a href="UserBuyHistoryDetail?buy_id=${BuyDataBeans.id}" class="btn-floating btn waves-effect waves-light "> <i class="material-icons">details</i></a></td>
-									<td class="center"><fmt:formatDate value="${BuyDataBeans.buyDate}" pattern="yyyy年MM月dd日kk時mm分" /></td>
-									<td class="center">${BuyDataBeans.deliveryMethodName}</td>
-									<td class="center">${BuyDataBeans.totalPrice+BuyDataBeans.deliveryMethodPrice}円</td>
+									<td class="center"><a href="UserBuyHistoryDetailServlet?id=${buydate.id}" class="btn-floating btn waves-effect waves-light "> <i class="material-icons">details</i></a></td>
+									<td class="center"><fmt:formatDate value="${buydate.buyDate}" pattern="yyyy年MM月dd日kk時mm分" /></td>
+									<td class="center">${buydate.deliveryMethodName}</td>
+									<td class="center">${buydate.totalPrice+buydate.deliveryMethodPrice}円</td>
 								</tr>
 								</c:forEach>
-
-
-
 							</tbody>
 						</table>
 					</div>

@@ -1,6 +1,7 @@
 package Servlet;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -11,6 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import dao.UserdateDetaildao;
+import dao.buydao;
+import model.buydate;
 import model.userdate;
 
 /**
@@ -43,6 +46,11 @@ public class UserdateDetailServlet extends HttpServlet {
 			/** テーブルに該当のデータが見つかった場合 **/
 			// セッションにユーザの情報をセット
 			request.setAttribute("userDate", user);
+
+		buydao buy=new buydao();
+		List<buydate> List=buy.find(id);
+
+		request.setAttribute("List", List);
 
 
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/userdatedetail.jsp");

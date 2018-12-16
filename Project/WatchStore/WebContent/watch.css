@@ -98,6 +98,7 @@
 }
 .slideheight{
 	max-height:400px;
+	margin:auto;
 	}
 .searchheight{
 	max-height:300px;
@@ -111,3 +112,12 @@
 .backcolor{
 	background-color:#003300
 }
+.he{
+	height: 400px;
+}
+.photo{
+	display: block;
+  	margin:0px auto;
+}
+
+

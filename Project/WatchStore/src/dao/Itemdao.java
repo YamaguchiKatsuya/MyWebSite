@@ -229,4 +229,12 @@ public class Itemdao {
         }
         return itemList;
 }
+
+	public static int getTotalItemPrice(ArrayList<itemdate> items) {
+		int total = 0;
+		for (itemdate item : items) {
+			total += Integer.parseInt(item.getPrice());
+		}
+		return total;
+	}
 }

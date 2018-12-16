@@ -3,6 +3,8 @@ package model;
 public class itemdate {
 
 	private int id;
+	private int buy_id;
+	private int item_id;
 	private String itemName;
 	private String detail;
 	private String price;
@@ -11,6 +13,17 @@ public class itemdate {
 	private String updateDate;
 
 
+
+	public itemdate(int id, int buy_id, int item_id, String itemName, String detail, String price, String fileName) {
+		super();
+		this.id = id;
+		this.buy_id = buy_id;
+		this.item_id = item_id;
+		this.itemName = itemName;
+		this.detail = detail;
+		this.price = price;
+		this.fileName = fileName;
+	}
 	public itemdate(String itemName, String detail, String price, String fileName) {
 		super();
 		this.itemName = itemName;
@@ -82,6 +95,18 @@ public class itemdate {
 	}
 	public void setUpdateDate(String updateDate) {
 		this.updateDate = updateDate;
+	}
+	public int getBuy_id() {
+		return buy_id;
+	}
+	public void setBuy_id(int buy_id) {
+		this.buy_id = buy_id;
+	}
+	public int getItem_id() {
+		return item_id;
+	}
+	public void setItem_id(int item_id) {
+		this.item_id = item_id;
 	}
 
 }

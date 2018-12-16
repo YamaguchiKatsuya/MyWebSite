@@ -79,8 +79,8 @@
   <c:forEach var="item" items="${itemList}" >
 		<div class="col s3">
 		<div class="card">
-		<div class="card-image">
-		<a href="ItemDetailServlet?id=${item.id}"><img src="img/${item.fileName}"class="searchheight"></a>
+		<div class="card-image he">
+		<a href="ItemDetailServlet?id=${item.id}"><img src="img/${item.fileName}"class="photo slideheight"></a>
 		</div>
 		</div>
 			<div class="center large">${item.itemName}</div>

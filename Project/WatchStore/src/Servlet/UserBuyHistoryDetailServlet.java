@@ -1,8 +1,7 @@
 package Servlet;
 
 import java.io.IOException;
-import java.sql.SQLException;
-import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -12,20 +11,21 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import dao.dbmethoddao;
+import dao.buydao;
+import model.buydate;
 import model.itemdate;
 
 /**
- * Servlet implementation class BuyConfirmServlet
+ * Servlet implementation class UserBuyHistoryDetailServlet
  */
-@WebServlet("/BuyConfirmServlet")
-public class BuyConfirmServlet extends HttpServlet {
+@WebServlet("/UserBuyHistoryDetailServlet")
+public class UserBuyHistoryDetailServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public BuyConfirmServlet() {
+    public UserBuyHistoryDetailServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -35,21 +35,22 @@ public class BuyConfirmServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
-		ArrayList<itemdate> cart = (ArrayList<itemdate>) session.getAttribute("cart");
 
-		ArrayList<model.dbmethod> dMDBList;
-		try {
-			dMDBList = dbmethoddao.getAllDeliveryMethodDataBeans();
-			request.setAttribute("dmdbList", dMDBList);
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/BuyConfirm.jsp");
-			dispatcher.forward(request, response);
-		} catch (SQLException e) {
-			// TODO 自動生成された catch ブロック
-			e.printStackTrace();
+
+		String id = request.getParameter("id");
+
+		buydao buy=new buydao();
+		List<buydate> buyList=buy.findbuy(id);
+		List<itemdate> itemList=buy.findData(id);
+
+		session.setAttribute("buyList", buyList);
+		request.setAttribute("itemList", itemList);
+
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/userbuyhistory.jsp");
+		dispatcher.forward(request, response);
+
 		}
 
-
-	}
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
