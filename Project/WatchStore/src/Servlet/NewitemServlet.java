@@ -1,6 +1,7 @@
 package Servlet;
 
 import java.io.IOException;
+import java.util.Date;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -10,6 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.servlet.http.Part;
 
 import model.itemdate;
 
@@ -57,10 +59,9 @@ public class NewitemServlet extends HttpServlet {
         String itemName = request.getParameter("item_name");
         String detail = request.getParameter("detail");
         String price = request.getParameter("price");
-        String fileName = request.getParameter("file_name");
+        Part part = request.getPart("file_name");
 
-
-        if (itemName.equals("")||detail.equals("")||price.equals("")||fileName.equals("")){
+        if (itemName.equals("")||detail.equals("")||price.equals("")||part == null){
 			// リクエストスコープにエラーメッセージをセット
 		request.setAttribute("errMsg", "入力された内容は正しくありません。");
 
@@ -70,7 +71,13 @@ public class NewitemServlet extends HttpServlet {
 			return;
 		}
 
-		itemdate item=new itemdate(itemName,detail,price,fileName);
+        String name = this.getFileName(part);
+        String name2 = new Date().getTime() + name;
+        part.write(getServletContext().getRealPath("/img") + "/" + name2);
+        System.out.println(getServletContext().getRealPath("/img") + "/" + name2);
+
+
+		itemdate item=new itemdate(itemName,detail,price,name);
 
 
 		HttpSession session = request.getSession();session.setAttribute("item", item);
@@ -80,5 +87,16 @@ public class NewitemServlet extends HttpServlet {
 
 
 	}
+	private String getFileName(Part part) {
+        String name = null;
+        for (String dispotion : part.getHeader("Content-Disposition").split(";")) {
+            if (dispotion.trim().startsWith("filename")) {
+                name = dispotion.substring(dispotion.indexOf("=") + 1).replace("\"", "").trim();
+                name = name.substring(name.lastIndexOf("\\") + 1);
+                break;
+            }
+        }
+        return name;
+    }
 
 }

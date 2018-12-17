@@ -133,6 +133,46 @@ public void updateItem(String id, String itemName, String detail, int price, Str
         }
     }
 }
+
+    public void updateFile(String id, String itemName, String detail, int price) {
+        Connection conn = null;
+        List<itemdate> userList = new ArrayList<itemdate>();
+
+        try {
+            // データベースへ接続
+            conn = DBManeger.getConnection();
+
+            // SELECT文を準備
+            // TODO: 未実装：管理者以外を取得するようSQLを変更する
+            String sql = "UPDATE w_item SET item_name=?,detail=?,price=? WHERE id = "+id;
+
+
+             // SELECTを実行し、結果表を取得
+            PreparedStatement pStmt = conn.prepareStatement(sql);
+
+            pStmt.setString(1, itemName);
+            pStmt.setString(2, detail);
+            pStmt.setInt(3, price);
+            pStmt.executeUpdate();
+            // 結果表に格納されたレコードの内容を
+            // Employeeインスタンスに設定し、ArrayListインスタンスに追加
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+
+
+        } finally {
+            // データベース切断
+            if (conn != null) {
+                try {
+                    conn.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+
+                }
+            }
+        }
+}
 }
 
 

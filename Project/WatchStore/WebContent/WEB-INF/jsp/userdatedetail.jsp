@@ -16,26 +16,7 @@
 <title>ユーザ情報</title>
 </head>
 <body>
-<nav class="#2e7d32 green darken-3">
-    <div class="nav-wrapper">
-      <a href="TopLoginServlet?id=${userInfo.id}" class="brand-logo"><i class="large material-icons">store</i>勝時計店</a>
-      <ul class="right hide-on-med-and-down">
-        <li><a href="SearchServlet"><i class="material-icons">watch</i></a></li>
-        <c:if test="${userInfo==null}" >
-        <li><a href="LoginServlet"><i class="material-icons">vpn_key</i></a></li>
-        </c:if>
-        <c:if test="${userInfo!= null}" >
-        <li><a href="UserdateDetailServlet?id=${userInfo.id}"><i class="material-icons">account_circle</i></a></li>
-        </c:if>
-        <li><a href="collapsible.html"><i class="material-icons">shopping_cart</i></a></li>
-        <li><a href="NewuserServlet"><i class="material-icons">add</i></a></li>
-        <c:if test="${userInfo!= null}" >
-        <li>${userInfo.user_name} さん </li>
-        </c:if>
-     </ul>
-    </div>
-  </nav>
-  <li class="right"><a href="LogoutServlet">ログアウト</a></li>
+<jsp:include page="/base/header.jsp" />
  <div class="container">
 <h5 class=" col s12 light">ユーザー情報</h5>
 
@@ -43,7 +24,7 @@
 			<div class="col s12">
 				<div class="card grey lighten-5">
 					<div class="card-content">
-						<form action="UserDateUpdateServlet?id=${userInfo.id}" method="POST">
+						<form action="UserDateUpdateServlet" method="POST">
 
 								<p class=" center-align">ユーザ情報</p>
 
@@ -51,6 +32,7 @@
 							<div class="row">
 								<div class="input-field col s6">
 									<input type="text" name="user_name" value="${userDate.user_name}"> <label>名前</label>
+									<input type="hidden" name="id" value="${userInfo.id}">
 								</div>
 								<div class="input-field col s6">
 									<input type="text" name="birth_date" value="${userDate.birth_date}"> <label>生年月日</label>
