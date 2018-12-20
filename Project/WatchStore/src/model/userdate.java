@@ -1,5 +1,8 @@
 package model;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class userdate {
 
 	private int id;
@@ -8,7 +11,7 @@ public class userdate {
 	private String birth_date;
 	private String password;
 	private String create_date;
-	private String update_date;
+	private Date update_date;
 
 
 
@@ -35,7 +38,7 @@ public class userdate {
 		super();
 	}
 	public userdate(int id, String user_name, String address, String birth_date, String password, String create_date,
-			String update_date) {
+			Date update_date) {
 		super();
 		this.id = id;
 		this.user_name = user_name;
@@ -81,11 +84,15 @@ public class userdate {
 	public void setCreate_date(String create_date) {
 		this.create_date = create_date;
 	}
-	public String getUpdate_date() {
+	public Date getUpdate_date() {
 		return update_date;
 	}
-	public void setUpdate_date(String update_date) {
+	public void setUpdate_date(Date update_date) {
 		this.update_date = update_date;
+	}
+	public String getFormatDate() {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy年MM月dd日HH時mm分");
+		return sdf.format(update_date);
 	}
 }
 

@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page contentType="text/html; charset=UTF-8" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -19,15 +21,7 @@
  <div class="container">
 <h3 class="center">商品詳細</h3>
 <br>
-<div class="row">
-<div class="col s4 right">
-				<form action="ItemDetailServlet" method="POST">
-						<input type="hidden" name="id" value="${itemDate.id}">
-				<button class="btn  waves-effect waves-light  col s6 offset-s4"
-					type="submit" name="action">買い物かごに入れる</button>
-					</form>
-			</div>
-			</div>
+<br>
 		<div class="row">
 		<div class="col s6">
 		<div class="card">
@@ -37,10 +31,24 @@
 		</div>
 		</div>
 		<div class="col s6">
-			<h4>${itemDate.itemName}</h4>
-			<h5>${itemDate.price}円</h5>
-			<h6>${itemDate.detail}</h6>
+			<h3 class="center">${itemDate.itemName}</h3>
+			<br>
+			<h4 class="center"><fmt:formatNumber value="${itemDate.price}" pattern="###,###" />円</h4>
+			<br>
+			<h5 class="center">${itemDate.detail}</h5>
+			<br>
+			<br>
+			<br>
+			<form action="ItemDetailServlet" method="POST">
+						<input type="hidden" name="id" value="${itemDate.id}">
+				<button class="center btn-large  waves-effect waves-light  col s4 offset-s4"
+					type="submit" name="action">買い物かごに入れる</button>
+					</form>
 			</div>
 </div>
+</div>
+<br>
+		<br>
+		<jsp:include page="/base/hooder.jsp" />
 					</body>
 </html>

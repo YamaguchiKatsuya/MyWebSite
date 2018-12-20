@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -27,20 +28,20 @@
 			</div>
 			<br>
 <h4 class="center">購入詳細</h4>
-	<div class="row">
+
 			<table class="bordered">
 				<thead>
 					<tr>
-						<th class="center">購入日時</th>
-						<th class="center">配送方法</th>
-						<th class="center">合計金額</th>
+						<th class="center large">購入日時</th>
+						<th class="center large">配送方法</th>
+						<th class="center large">合計金額</th>
 					</tr>
 				</thead>
 				<tbody>
 						<tr>
-							<td class="center">${resultBDB.buyDate}</td>
-							<td class="center">${userSelectDMB.method}</td>
-							<td class="center">${totalPrice+userSelectDMB.price}円</td>
+							<td class="center large">${resultBDB.buyDate}</td>
+							<td class="center large">${userSelectDMB.method}</td>
+							<td class="center large"><fmt:formatNumber value="${totalPrice+userSelectDMB.price}" pattern="###,###" />円</td>
 						</tr>
 						</tbody>
 			</table>
@@ -50,23 +51,27 @@
 			<table class="bordered">
 				<thead>
 					<tr>
-						<th class="center">商品名</th>
-						<th class="center">単価</th>
+						<th class="center large">商品名</th>
+						<th class="center large">単価</th>
 					</tr>
 				</thead>
 				<tbody>
 					<c:forEach var="item" items="${cart}">
 						<tr>
-							<td class="center">${item.itemName}</td>
-							<td class="center">${item.price}円</td>
+							<td class="center large">${item.itemName}</td>
+							<td class="center large"><fmt:formatNumber value="${item.price}" pattern="###,###" /></td>
 						</tr>
 					</c:forEach>
 					<tr>
-							<td class="center">${userSelectDMB.method}</td>
-							<td class="center">${userSelectDMB.price}円</td>
+							<td class="center large">${userSelectDMB.method}</td>
+							<td class="center large">${userSelectDMB.price}円</td>
 						</tr>
 						</tbody>
 			</table>
-
+			</div>
+			</div>
+<br>
+		<br>
+		<jsp:include page="/base/hooder.jsp" />
 </body>
 </html>

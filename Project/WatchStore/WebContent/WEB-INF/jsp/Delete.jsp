@@ -40,5 +40,9 @@
 			</div>
 			</form>
 	</div>
+	</div>
+	<br>
+		<br>
+		<jsp:include page="/base/hooder.jsp" />
 		</body>
 </html>

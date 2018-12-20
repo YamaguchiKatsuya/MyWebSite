@@ -58,6 +58,9 @@
 </div>
 <input type=hidden name=MySubmit>
 </form>
+<br>
+		<br>
+		<jsp:include page="/base/hooder.jsp" />
 <script language="JavaScript">
 function func(MyCommand){
 document.MyForm.MySubmit.value=MyCommand;

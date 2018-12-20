@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ page contentType="text/html; charset=UTF-8" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -28,9 +29,9 @@
 						<table>
 							<thead>
 								<tr>
-									<th class="center" style="width: 20%;">購入日時</th>
-									<th class="center">配送方法</th>
-									<th class="center" style="width: 20%">合計金額</th>
+									<th class="center large">購入日時</th>
+									<th class="center large">配送方法</th>
+									<th class="center large" >合計金額</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -38,9 +39,9 @@
 
 								<tr>
 
-									<td class="center"><fmt:formatDate value="${buydate.buyDate}" pattern="yyyy年MM月dd日kk時mm分" /></td>
-									<td class="center">${buydate.deliveryMethodName}</td>
-									<td class="center">${buydate.totalPrice+buydate.deliveryMethodPrice}円</td>
+									<td class="center large"><fmt:formatDate value="${buydate.buyDate}" pattern="yyyy年MM月dd日kk時mm分" /></td>
+									<td class="center large">${buydate.deliveryMethodName}</td>
+									<td class="center large"><fmt:formatNumber value="${buydate.totalPrice+buydate.deliveryMethodPrice}" pattern="###,###" />円</td>
 								</tr>
 
 								</c:forEach>
@@ -58,22 +59,22 @@
 						<table class="bordered">
 							<thead>
 								<tr>
-									<th class="center">商品名</th>
-									<th class="center" style="width: 20%">単価</th>
+									<th class="center large">商品名</th>
+									<th class="center large" style="width: 20%">単価</th>
 								</tr>
 							</thead>
 							<tbody>
 							<c:forEach var="itemdate" items="${itemList}" >
 								<tr>
-									<td class="center">${itemdate.itemName}</td>
-									<td class="center">${itemdate.price}円</td>
+									<td class="center large">${itemdate.itemName}</td>
+									<td class="center large"><fmt:formatNumber value="${itemdate.price}" pattern="###,###" />円</td>
 									</tr>
 								</c:forEach>
 								<c:forEach var="buydate" items="${buyList}" >
 								<tr>
 
-									<td class="center">${buydate.deliveryMethodName}</td>
-									<td class="center">${buydate.deliveryMethodPrice}円</td>
+									<td class="center large">${buydate.deliveryMethodName}</td>
+									<td class="center large">${buydate.deliveryMethodPrice}円</td>
 								</tr>
 								</c:forEach>
 
@@ -84,5 +85,8 @@
 			</div>
 		</div>
 	</div>
+	<br>
+		<br>
+		<jsp:include page="/base/hooder.jsp" />
 	</body>
 </html>

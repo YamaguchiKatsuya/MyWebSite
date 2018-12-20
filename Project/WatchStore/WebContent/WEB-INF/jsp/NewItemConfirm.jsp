@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page contentType="text/html; charset=UTF-8" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -21,7 +22,13 @@
 <br>
 <br>
 <form name=MyForm action="NewItemConfirmServlet" method="POST">
-<div class="row">
+		<div class="row">
+        <div class="input-field col s12">
+          <input value="${i.brandName}" name="brand_name" type="text" class="validate" readonly>
+          <label for="disabled">ブランド名</label>
+        </div>
+      </div>
+		<div class="row">
         <div class="input-field col s12">
           <input value="${i.itemName}" name="item_name" type="text" class="validate" readonly>
           <label for="disabled">商品名</label>
@@ -35,20 +42,23 @@
       </div>
       <div class="row">
         <div class="input-field col s12">
-          <input readonly value="${i.price}" name="price" type="text" class="validate">
+          <input readonly value="${i.price}"name="price" type="text" class="validate">
           <label for="disabled">値段</label>
         </div>
       </div>
        <div class="row">
         <div class="input-field col s12">
           <input readonly value="${i.fileName}" name="file_name" type="text" class="validate">
+          <input readonly value="${i.fileName2}" name="file_name2" type="hidden">
           <label for="disabled">ファイル名</label>
         </div>
       </div>
     <div class="row">
+    <div class="col s4 center">
 		<div class="card">
 		<div class="card-image">
-		<img src="img/${i.fileName}" class="slideheight">
+		<img src="img/${i.fileName2}" class="width height" >
+		</div>
 		</div>
 		</div>
 		</div>
@@ -65,13 +75,16 @@
 </div>
 <input type=hidden name=MySubmit>
 </form>
+</div>
+<br>
+		<br>
+		<jsp:include page="/base/hooder.jsp" />
 <script language="JavaScript">
 function func(MyCommand){
 document.MyForm.MySubmit.value=MyCommand;
 document.MyForm.submit();
 }
 </script>
-</div>
 
 </body>
 </html>

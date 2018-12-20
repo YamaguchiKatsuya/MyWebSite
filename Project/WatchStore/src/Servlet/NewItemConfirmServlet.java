@@ -35,6 +35,7 @@ public class NewItemConfirmServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
 		HttpSession session = request.getSession();
 
 		itemdate i = (itemdate) session.getAttribute("item");
@@ -52,10 +53,12 @@ public class NewItemConfirmServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+		request.setCharacterEncoding("UTF-8");
+		String brandName = request.getParameter("brand_name");
 		String itemName = request.getParameter("item_name");
         String detail = request.getParameter("detail");
         String price = request.getParameter("price");
-        String fileName = request.getParameter("file_name");
+        String fileName = request.getParameter("file_name2");
         String MyAction = request.getParameter("MySubmit");
 
 
@@ -65,7 +68,7 @@ public class NewItemConfirmServlet extends HttpServlet {
 
 		NewItemdao newitemdao = new NewItemdao();
 		try {
-			newitemdao.newItem(itemName,detail,price,fileName);
+			newitemdao.newItem(brandName,itemName,detail,price,fileName);
 
 		} catch (SQLException e) {
 
@@ -82,7 +85,7 @@ public class NewItemConfirmServlet extends HttpServlet {
         }
         if(MyAction.equals("return")){
 
-        	itemdate i=new itemdate(itemName,detail,price,fileName);
+        	itemdate i=new itemdate(brandName,itemName,detail,price,fileName);
 
         	HttpSession session = request.getSession();session.setAttribute("i", i);
 

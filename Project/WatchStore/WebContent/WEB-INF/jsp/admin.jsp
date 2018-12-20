@@ -24,30 +24,45 @@
 <br>
 <div class="row">
 		<form action="ListServlet" method="GET">
-			<div class="col s3">
+			<div class="col s4">
 				<button class="btn  waves-effect waves-light  col s6 offset-s4"
 					type="submit" name="action">ユーザ一覧</button>
 			</div>
 			</form>
 			<form action="ItemListServlet" method="GET">
-			<div class="col s3">
+			<div class="col s4">
 				<button class="btn  waves-effect waves-light  col s6 offset-s4"
 					type="submit" name="action">商品一覧</button>
 			</div>
 			</form>
-			<form action="NewitemServlet" method="GET">
-			<div class="col s3">
-				<button class="btn  waves-effect waves-light  col s6 offset-s4"
-					type="submit" name="action">商品登録</button>
-			</div>
-			</form>
 			<form action="TopLoginServlet?id=${userInfo.id}" method="POST">
-			<div class="col s3">
+			<div class="col s4">
 				<button class="btn  waves-effect waves-light  col s6 offset-s4"
 					type="submit" name="action">Topページ</button>
 			</div>
 			</form>
+
+	</div>
+	<br>
+	<div class="row">
+
+	<form action="NewitemServlet" method="GET">
+			<div class="col s6">
+				<button class="btn  waves-effect waves-light  col s6 offset-s4"
+					type="submit" name="action">商品登録</button>
+			</div>
+			</form>
+			<form action="NewBrandServlet" method="GET">
+			<div class="col s6">
+				<button class="btn  waves-effect waves-light  col s6 offset-s4"
+					type="submit" name="action">ブランド登録</button>
+			</div>
+			</form>
+
 	</div>
 	</div>
+	<br>
+		<br>
+		<jsp:include page="/base/hooder.jsp" />
 </body>
 </html>

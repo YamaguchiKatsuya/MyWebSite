@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -49,28 +50,31 @@
 
 
   <div class="col s4 right">
-				<button class="btn  waves-effect waves-light  col s8 offset-s4"
+				<button class="btn-large  waves-effect waves-light  col s8 offset-s4"
 					type="submit" name="action">検索</button>
 			</div>
 </form>
-
+  <br>
   <br>
   <br>
   <div class="row">
   <c:forEach var="item" items="${itemList}" >
-		<div class="col s3">
+		<div class="col s4">
 		<div class="card">
 		<div class="card-image he">
 		<a href="ItemDetailServlet?id=${item.id}"><img src="img/${item.fileName}"class="photo slideheight"></a>
 		</div>
 		</div>
 			<div class="center large">${item.itemName}</div>
-			<div class="center large">${item.price}円</div>
+			<div class="center large"><fmt:formatNumber value="${item.price}" pattern="###,###" />円</div>
+			<br>
 		</div>
 				</c:forEach>
 				</div>
 </div>
-
+		<br>
+		<br>
+		<jsp:include page="/base/hooder.jsp" />
 
 
 </body>

@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Date;
 
 import model.userdate;
 
@@ -33,7 +34,7 @@ public class UserdateDetaildao {
                 String birthDate = rs.getString("birth_date");
                 String Password = rs.getString("password");
                 String createDate = rs.getString("create_date");
-                String updateDate = rs.getString("update_date");
+                Date updateDate = rs.getDate("update_date");
 
                 return new userdate(id, userName, address, birthDate, Password, createDate, updateDate);
 

@@ -18,6 +18,11 @@
 <jsp:include page="/base/header.jsp" />
 <div class="container">
 <h4>商品更新</h4>
+<c:if test="${errMsg != null}" >
+	    <div class="alert alert-danger center color-red" role="alert">
+		  ${errMsg}
+		</div>
+	</c:if>
 <form action="ItemUpdateServlet" method="POST" enctype=multipart/form-data>
 <div class="row">
     <div class="col s12">
@@ -64,9 +69,11 @@
       </div>
     </div>
     <div class="row">
+    <div class="col s4 center">
 		<div class="card">
 		<div class="card-image">
 		<img src="img/${itemDate.fileName}" class="width height">
+		</div>
 		</div>
 		</div>
 		</div>
@@ -78,6 +85,8 @@
   </div>
   </form>
   </div>
-
+<br>
+		<br>
+		<jsp:include page="/base/hooder.jsp" />
 </body>
 </html>

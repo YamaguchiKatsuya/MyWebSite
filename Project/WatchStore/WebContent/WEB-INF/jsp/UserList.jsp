@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -62,25 +63,27 @@
     </div>
   </div>
   <div class="col s4 right">
-				<button class="btn  waves-effect waves-light  col s6 offset-s4"
+				<button class="btn-large  waves-effect waves-light  col s6 offset-s4"
 					type="submit" name="action">検索</button>
 			</div>
 			</form>
  <table class="highlight">
         <thead>
           <tr>
-              <th>ユーザ名</th>
-              <th>生年月日</th>
-              <th></th>
+              <th class="center">ユーザ名</th>
+              <th class="center">生年月日</th>
+              <th class="center">最終更新日時</th>
+              <th class="center"  style="width:600px"></th>
           </tr>
         </thead>
 
         <tbody>
          <c:forEach var="user" items="${userList}" >
           <tr>
-            <td>${user.user_name}</td>
-            <td>${user.birth_date}</td>
-            <td>
+            <td class="center">${user.user_name}</td>
+            <td class="center">${user.birth_date}</td>
+            <td class="center"><fmt:formatDate value="${user.update_date}" pattern="yyyy年MM月dd日kk時mm分" /></td>
+            <td class="center">
             <div class="row">
 		<form action="UserdateDetailServlet?id=${user.id}" method="POST">
 			<div class="col s6">
@@ -102,5 +105,8 @@
         </tbody>
       </table>
       </div>
+      <br>
+		<br>
+		<jsp:include page="/base/hooder.jsp" />
 </body>
 </html>

@@ -102,5 +102,8 @@
   </div>
   </div>
   </form>
+  <br>
+		<br>
+		<jsp:include page="/base/hooder.jsp" />
 </body>
 </html>

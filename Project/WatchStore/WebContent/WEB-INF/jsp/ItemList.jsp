@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page contentType="text/html; charset=UTF-8" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,6 +13,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="watch.css">
+
 
 <title>商品一覧</title>
 <jsp:include page="/base/header.jsp" />
@@ -66,18 +69,20 @@
  <table class="highlight">
         <thead>
           <tr>
-              <th>商品名</th>
-              <th>値段</th>
-              <th></th>
+              <th class="center">商品名</th>
+              <th class="center">値段</th>
+              <th class="center">最終更新日時</th>
+              <th class="center" style="width:600px"></th>
           </tr>
         </thead>
 
         <tbody>
           <c:forEach var="item" items="${itemList}" >
           <tr>
-            <td>${item.itemName}</td>
-            <td>${item.price}</td>
-            <td>
+            <td class="center">${item.itemName}</td>
+            <td class="center"><fmt:formatNumber value="${item.price}" pattern="###,###" />円</td>
+            <td class="center"><fmt:formatDate value="${item.updateDate}" pattern="yyyy年MM月dd日kk時mm分" /></td>
+            <td class="center">
 
             <div class="row">
 			<div class="col s4">
@@ -100,5 +105,9 @@
         </tbody>
       </table>
       </div>
+      <br>
+		<br>
+		<jsp:include page="/base/hooder.jsp" />
+
 </body>
 </html>

@@ -11,7 +11,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="watch.css">
-<title>トップページ</title>
 
 </head>
 <body>
@@ -26,16 +25,16 @@
         <c:if test="${userInfo!= null}" >
         <li><a href="UserdateDetailServlet?id=${userInfo.id}"><i class="material-icons">account_circle</i></a></li>
         </c:if>
-        <li><a href="CartServlet"><i class="material-icons">shopping_cart</i></a></li>
+        <li><a href="CartServlet"><i class="large material-icons">shopping_cart</i></a></li>
         <li><a href="NewConfirmServlet"><i class="material-icons">add</i></a></li>
         <c:if test="${userInfo!= null}" >
-        <li>${userInfo.user_name} さん </li>
+        <li class="large">${userInfo.user_name} さん </li>
         </c:if>
      </ul>
     </div>
   </nav>
   <c:if test="${userInfo.id==1}" >
-  <li class="left large"><a href="adminServlet">管理者画面へ</a></li></c:if>
+  <li class="left font-size"><a href="adminServlet">管理者画面へ</a></li></c:if>
   <li class="right large"><a href="LogoutServlet">ログアウト</a></li>
 </body>
 </html>

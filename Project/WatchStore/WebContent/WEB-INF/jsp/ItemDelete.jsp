@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page contentType="text/html; charset=UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -32,12 +33,16 @@
 					type="submit" name="action">OK</button>
 			</div>
 			</form>
-			<form action="ItemListServlet" method="POST">
 			<div class="col s6">
+			<a href="ItemListServlet">
 				<button class="btn  waves-effect waves-light  col s6 offset-s4"
-					type="submit" name="action">キャンセル</button>
+					type="submit" name="action">キャンセル</button></a>
 			</div>
 			</form>
+			</div>
 	</div>
+	<br>
+		<br>
+		<jsp:include page="/base/hooder.jsp" />
 		</body>
 </html>

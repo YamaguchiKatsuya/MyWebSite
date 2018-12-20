@@ -36,6 +36,9 @@ public class BuyConfirmServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		ArrayList<itemdate> cart = (ArrayList<itemdate>) session.getAttribute("cart");
+		if(cart.size()==0){
+			response.sendRedirect("CartServlet");
+		}else {
 
 		ArrayList<model.dbmethod> dMDBList;
 		try {
@@ -46,6 +49,7 @@ public class BuyConfirmServlet extends HttpServlet {
 		} catch (SQLException e) {
 			// TODO 自動生成された catch ブロック
 			e.printStackTrace();
+		}
 		}
 
 

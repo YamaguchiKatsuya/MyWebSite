@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page contentType="text/html; charset=UTF-8" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,17 +18,35 @@
 <jsp:include page="/base/header.jsp" />
 <div class="container">
 <h4>商品登録</h4>
-
+<c:if test="${errMsg != null}" >
+	    <div class="alert alert-danger center color-red" role="alert">
+		  ${errMsg}
+		</div>
+	</c:if>
 <form action="NewitemServlet" method="post" enctype=multipart/form-data>
 <div class="row">
     <div class="col s12">
-      <div class="row">
+    <div class="row">
+      <div class="input-field col s6 ">
+      <i class="material-icons prefix">edit</i>
+								<select name="brand_name">
+									<c:forEach var="brand" items="${brandList}">
+										<option value="${brand.brandName}">${brand.brandName}</option>
+									</c:forEach>
+								</select> <label for="autocomplete-input">ブランド名</label>
+							</div>
+							</div>
+							</div>
+	<div class="row">
+    <div class="col s12">
+    <div class="row">
         <div class="input-field col s12">
           <i class="material-icons prefix">edit</i>
           <c:if test="${d==null}" >
           <input type="text" name="item_name" class="autocomplete">
           </c:if>
           <c:if test="${d!=null}" >
+          <input type="hidden" name="name" class="autocomplete" value="${d.brandName }">
           <input type="text" name="item_name" class="autocomplete" value="${d.itemName }">
           </c:if>
           <label for="autocomplete-input">商品名</label>
@@ -60,7 +79,7 @@
           <input type="text" name="price" class="autocomplete">
           </c:if>
           <c:if test="${d!=null}" >
-          <input type="text" name="price" class="autocomplete" value="${d.price }">
+          <input type="text" name="price" class="autocomplete" value="${d.price}">
           </c:if>
           <label for="autocomplete-input">値段</label>
         </div>
@@ -70,12 +89,7 @@
     <div class="file-field input-field">
       <div class="btn">
         <span>画像</span>
-        <c:if test="${d==null}" >
           <input type="file" name="file_name" class="autocomplete">
-          </c:if>
-          <c:if test="${d!=null}" >
-          <input type="file" name="file_name" class="autocomplete" value="${d.fileName }">
-          </c:if>
       </div>
       <div class="file-path-wrapper">
         <input class="file-path validate" type="text">
@@ -88,5 +102,15 @@
   </div>
   </div>
   </form>
+  </div>
+  <br>
+		<br>
+		<jsp:include page="/base/hooder.jsp" />
+  <script type="text/javascript">
+			document.addEventListener('DOMContentLoaded', function() {
+		    var elems = document.querySelectorAll('select');
+		    var instances = M.FormSelect.init(elems);
+		  });
+		</script>
 </body>
 </html>

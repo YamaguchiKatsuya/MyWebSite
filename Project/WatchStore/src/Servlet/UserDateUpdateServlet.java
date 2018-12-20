@@ -74,7 +74,7 @@ public class UserDateUpdateServlet extends HttpServlet {
 			return;
 		}
         //ハッシュを生成したい元の文字列
-        String source = "pass";
+        String source = pass;
         //ハッシュ生成前にバイト配列に置き換える際のCharset
         Charset charset = StandardCharsets.UTF_8;
         //ハッシュアルゴリズム

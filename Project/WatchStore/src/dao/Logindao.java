@@ -5,7 +5,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import model.userdate;
@@ -19,7 +22,7 @@ public class Logindao {
             conn = DBManeger.getConnection();
 
             // SELECT文を準備
-            String sql = "SELECT * FROM w_user WHERE user_name = ? and password = ?";
+            String sql = "SELECT * FROM w_user WHERE user_name = ? and password = ? ORDER BY id desc";
              // SELECTを実行し、結果表を取得
             PreparedStatement pStmt = conn.prepareStatement(sql);
             pStmt.setString(1, userName);
@@ -64,7 +67,7 @@ public class Logindao {
 
 	         // SELECT文を準備
 	            // TODO: 未実装：管理者以外を取得するようSQLを変更する
-	            String sql = "SELECT * FROM w_user WHERE id <> 1";
+	            String sql = "SELECT * FROM w_user WHERE id <> 1 ORDER BY update_date desc";
 
 	             // SELECTを実行し、結果表を取得
 	            Statement stmt = conn.createStatement();
@@ -79,7 +82,9 @@ public class Logindao {
 	                String birthDate = rs.getString("birth_date");
 	                String Password = rs.getString("password");
 	                String createDate = rs.getString("create_date");
-	                String updateDate = rs.getString("update_date");
+	                Timestamp updateDate = rs.getTimestamp("update_date");
+	                SimpleDateFormat sdf = new SimpleDateFormat("yyyy年MM月dd日HH時mm分");
+	                sdf.format(updateDate);
 	                userdate user = new userdate(id, userName, address, birthDate, Password, createDate, updateDate);
 
 	                userList.add(user);
@@ -128,7 +133,7 @@ public class Logindao {
 			if (!Date2.isEmpty()) {
 				sql += "AND birth_date<='" + Date2 + "' ";
 			}
-
+			sql +="ORDER BY id desc";
 		         // SELECTを実行し、結果表を取得
 		        Statement stmt = conn.createStatement();
 		        ResultSet rs = stmt.executeQuery(sql);
@@ -142,7 +147,7 @@ public class Logindao {
 		            String birthDate = rs.getString("birth_date");
 		            String Password = rs.getString("password");
 		            String createDate = rs.getString("create_date");
-		            String updateDate = rs.getString("update_date");
+		            Date updateDate = rs.getDate("update_date");
 		            userdate user = new userdate(id, UserName, Address, birthDate, Password, createDate, updateDate);
 
 		            userList.add(user);

@@ -66,7 +66,7 @@ public class NewuserServlet extends HttpServlet {
         if(MyAction.equals("action")){
 
         	//ハッシュを生成したい元の文字列
-        String source = "pass";
+        String source = pass;
         //ハッシュ生成前にバイト配列に置き換える際のCharset
         Charset charset = StandardCharsets.UTF_8;
         //ハッシュアルゴリズム
@@ -98,7 +98,7 @@ public class NewuserServlet extends HttpServlet {
 
 		} catch (SQLException e) {
 
-			request.setAttribute("errMsg", "入力された内容は正しくありません。");
+			request.setAttribute("errMsg", "このユーザ名は使用できません。");
 
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/userdatenew.jsp");
 			dispatcher.forward(request, response);

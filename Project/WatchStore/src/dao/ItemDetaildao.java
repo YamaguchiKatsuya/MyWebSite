@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Date;
 
 import model.itemdate;
 
@@ -31,7 +32,7 @@ public class ItemDetaildao {
             String price = rs.getString("price");
             String fileName = rs.getString("file_name");
             String createDate = rs.getString("create_date");
-            String updateDate = rs.getString("update_date");
+            Date updateDate = rs.getDate("update_date");
             return new itemdate(id, itemName, detail, price, fileName, createDate, updateDate);
 
 

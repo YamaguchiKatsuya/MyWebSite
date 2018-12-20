@@ -20,7 +20,7 @@ public class Updatedao {
 
             // SELECT文を準備
             // TODO: 未実装：管理者以外を取得するようSQLを変更する
-            String sql = "UPDATE w_user SET password=?,name=?,birth_date=?,address=? WHERE id = "+id;
+            String sql = "UPDATE w_user SET password=?,name=?,birth_date=?,address=?,update_date=now() WHERE id = "+id;
 
 
              // SELECTを実行し、結果表を取得
@@ -63,7 +63,7 @@ public void passdateId(String id,String name,String BirthDate,String address)  {
 
         // SELECT文を準備
         // TODO: 未実装：管理者以外を取得するようSQLを変更する
-        String sql = "UPDATE w_user SET user_name=?,birth_date=?,address=? WHERE id = "+id;
+        String sql = "UPDATE w_user SET user_name=?,birth_date=?,address=?,update_date=now() WHERE id = "+id;
 
 
          // SELECTを実行し、結果表を取得
@@ -103,7 +103,7 @@ public void updateItem(String id, String itemName, String detail, int price, Str
 
         // SELECT文を準備
         // TODO: 未実装：管理者以外を取得するようSQLを変更する
-        String sql = "UPDATE w_item SET item_name=?,detail=?,price=?,file_name=? WHERE id = "+id;
+        String sql = "UPDATE w_item SET item_name=?,detail=?,price=?,file_name=?,update_date=now() WHERE id = "+id;
 
 
          // SELECTを実行し、結果表を取得
@@ -144,7 +144,7 @@ public void updateItem(String id, String itemName, String detail, int price, Str
 
             // SELECT文を準備
             // TODO: 未実装：管理者以外を取得するようSQLを変更する
-            String sql = "UPDATE w_item SET item_name=?,detail=?,price=? WHERE id = "+id;
+            String sql = "UPDATE w_item SET item_name=?,detail=?,price=?,update_date=now() WHERE id = "+id;
 
 
              // SELECTを実行し、結果表を取得

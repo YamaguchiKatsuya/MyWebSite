@@ -21,7 +21,7 @@ import model.itemdate;
  * Servlet implementation class ItemUpdateServlet
  */
 @WebServlet("/ItemUpdateServlet")
-@MultipartConfig(location="/tmp", maxFileSize=1048576)
+@MultipartConfig(location="C:\\Users\\山口　勝也\\Documents\\GitHub\\MyWebSite\\Project\\WatchStore\\WebContent\\img", maxFileSize=1048576)
 public class ItemUpdateServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -37,6 +37,7 @@ public class ItemUpdateServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
 		HttpSession session = request.getSession();
 
 		String id = request.getParameter("id");
@@ -72,8 +73,19 @@ public class ItemUpdateServlet extends HttpServlet {
 			// リクエストスコープにエラーメッセージをセット
 		request.setAttribute("errMsg", "入力された内容は正しくありません。");
 
+		HttpSession session = request.getSession();
 
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/itemUpdate.jsp");
+		String Id = request.getParameter("id");
+		ItemDetaildao ItemDetaildao = new ItemDetaildao();
+		itemdate item = ItemDetaildao.findById(Id);
+
+		/** テーブルに該当のデータが見つかった場合 **/
+		// セッションにユーザの情報をセット
+		request.setAttribute("itemDate", item);
+
+
+
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/ItemUpdate.jsp");
 			dispatcher.forward(request, response);
 			return;
 		}
@@ -89,7 +101,7 @@ public class ItemUpdateServlet extends HttpServlet {
 
         	String name = this.getFileName(part);
             String name2 = new Date().getTime() + name;
-            part.write(getServletContext().getRealPath("/img") + "/" + name2);
+            part.write(name2);
             System.out.println(getServletContext().getRealPath("/img") + "/" + name2);
 
 

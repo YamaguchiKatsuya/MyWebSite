@@ -34,6 +34,11 @@ public class CartServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		HttpSession session = request.getSession();
+		if(session.getAttribute("userInfo")==null){
+			response.sendRedirect("LoginServlet");
+
+		}else {
+
 			ArrayList<itemdate> cart = (ArrayList<itemdate>) session.getAttribute("cart");
 			//セッションにカートがない場合カートを作成
 			if (cart == null) {
@@ -50,6 +55,7 @@ public class CartServlet extends HttpServlet {
 			request.setAttribute("cartActionMessage", cartActionMessage);
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/Cart.jsp");
 		dispatcher.forward(request, response);
+	}
 	}
 
 	/**
