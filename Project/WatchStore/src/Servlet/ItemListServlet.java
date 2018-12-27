@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import dao.Itemdao;
 import model.itemdate;
+import model.saledate;
 
 /**
  * Servlet implementation class ItemListServlet
@@ -35,7 +36,7 @@ public class ItemListServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 
 		Itemdao itemdao = new Itemdao();
-		List<itemdate> itemList = itemdao.findAll();
+		List<saledate> itemList = itemdao.findAll();
 
 		// リクエストスコープにユーザ一覧情報をセット
 		request.setAttribute("itemList", itemList);

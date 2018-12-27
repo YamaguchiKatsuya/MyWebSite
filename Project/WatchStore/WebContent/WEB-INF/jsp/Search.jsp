@@ -66,7 +66,11 @@
 		</div>
 		</div>
 			<div class="center large">${item.itemName}</div>
-			<div class="center large"><fmt:formatNumber value="${item.price}" pattern="###,###" />円</div>
+			<div class="center large"><fmt:formatNumber value="${item.price}" pattern="###,###" />円
+			<c:if test="${item.sale!=null}" >
+			→<fmt:formatNumber value="${item.saleprice}" pattern="###,###" />円
+			</c:if>
+			</div>
 			<br>
 		</div>
 				</c:forEach>

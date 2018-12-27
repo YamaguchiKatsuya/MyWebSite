@@ -31,7 +31,15 @@
 		</div>
 		</div>
 			<div class="center">${item.itemName}</div>
-			<div class="center"><fmt:formatNumber value="${item.price}" pattern="###,###" />円</div>
+			<div class="center">
+			<c:if test="${item.sale!=null}" >
+			<fmt:formatNumber value="${item.saleprice}" pattern="###,###" />円
+			</c:if>
+			<c:if test="${item.sale==null}" >
+			<fmt:formatNumber value="${item.price}" pattern="###,###" />円
+			</c:if>
+			</div>
+
 			<br>
 			<form action="CartDeleteServlet?id=${item.id}" method="POST">
 			<div class="col s12 center">

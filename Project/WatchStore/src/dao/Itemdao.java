@@ -12,12 +12,13 @@ import java.util.List;
 
 import model.brandDate;
 import model.itemdate;
+import model.saledate;
 
 public class Itemdao {
 
-	public List<itemdate> findAll() {
+	public List<saledate> findAll() {
         Connection conn = null;
-        List<itemdate> itemList = new ArrayList<itemdate>();
+        List<saledate> itemList = new ArrayList<saledate>();
 
         try {
             // データベースへ接続
@@ -25,7 +26,7 @@ public class Itemdao {
 
          // SELECT文を準備
             // TODO: 未実装：管理者以外を取得するようSQLを変更する
-            String sql = "SELECT * FROM w_item ORDER BY id desc ";
+            String sql = "select * from w_item left outer join w_sale on w_item.brand_name=w_sale.brand_name AND w_sale.start_date<= now() AND now() <= w_sale.finish_date ORDER BY w_item.id desc ";
 
              // SELECTを実行し、結果表を取得
             Statement stmt = conn.createStatement();
@@ -44,9 +45,27 @@ public class Itemdao {
                 Timestamp updateDate = rs.getTimestamp("update_date");
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy年MM月dd日HH時mm分");
                 sdf.format(updateDate);
-                itemdate item = new itemdate(id, itemName, detail, price, fileName, createDate, updateDate);
+                String sale = rs.getString("sale");
+                String startDate = rs.getString("start_date");
+                String finishDate = rs.getString("finish_date");
+
+                if(sale!=null){
+
+                int p=Integer.parseInt(price);
+    			int s=Integer.parseInt(sale);
+    			double s2=(double)(100-s)/100;
+    			int saleprice=(int)((int)p*s2);
+
+    			saledate item = new saledate(id, itemName, detail, price, fileName, createDate, updateDate,sale,startDate,finishDate,saleprice);
+
+    			itemList.add(item);
+
+                }else {
+
+                saledate item = new saledate(id, itemName, detail, price, fileName, createDate, updateDate,sale,startDate,finishDate);
 
                 itemList.add(item);
+            }
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -191,9 +210,9 @@ public class Itemdao {
 	    }
 	    return itemList;
 	}
-	public List<itemdate> cart(String Id) {
+	public List<saledate> cart(String Id) {
         Connection conn = null;
-        List<itemdate> itemList = new ArrayList<itemdate>();
+        List<saledate> itemList = new ArrayList<saledate>();
 
         try {
             // データベースへ接続
@@ -201,7 +220,7 @@ public class Itemdao {
 
          // SELECT文を準備
             // TODO: 未実装：管理者以外を取得するようSQLを変更する
-            String sql = "SELECT * FROM w_item WHERE id = "+Id;
+            String sql = "select * from w_item left outer join w_sale on w_item.brand_name=w_sale.brand_name AND w_sale.start_date<= now() AND now() <= w_sale.finish_date WHERE w_item.id = "+Id;
 
              // SELECTを実行し、結果表を取得
             Statement stmt = conn.createStatement();
@@ -217,9 +236,27 @@ public class Itemdao {
                 String fileName = rs.getString("file_name");
                 String createDate = rs.getString("create_date");
                 Date updateDate = rs.getDate("update_date");
-                itemdate item = new itemdate(id, itemName, detail, price, fileName, createDate, updateDate);
+                String sale = rs.getString("sale");
+                String startDate = rs.getString("start_date");
+                String finishDate = rs.getString("finish_date");
 
-                itemList.add(item);
+                if(sale!=null){
+
+                    int p=Integer.parseInt(price);
+        			int s=Integer.parseInt(sale);
+        			double s2=(double)(100-s)/100;
+        			int saleprice=(int)((int)p*s2);
+
+        			saledate item = new saledate(id, itemName, detail, price, fileName, createDate, updateDate,sale,startDate,finishDate,saleprice);
+
+        			itemList.add(item);
+
+                    }else {
+
+                    saledate item = new saledate(id, itemName, detail, price, fileName, createDate, updateDate,sale,startDate,finishDate);
+
+                    itemList.add(item);
+                }
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -238,12 +275,22 @@ public class Itemdao {
         return itemList;
 }
 
-	public static int getTotalItemPrice(ArrayList<itemdate> items) {
+	public static int getTotalItemPrice(ArrayList<saledate> items) {
 		int total = 0;
-		for (itemdate item : items) {
+
+		for (saledate item : items) {
+			if(item.getSale()==null) {
 			total += Integer.parseInt(item.getPrice());
+		}else {
+			int p=Integer.parseInt(item.getPrice());
+			int s=Integer.parseInt(item.getSale());
+			double s2=(double)(100-s)/100;
+			int saleprice=(int)((int)p*s2);
+			total += saleprice;
+		}
 		}
 		return total;
+
 	}
 
 	public List<itemdate> brandsearch(String itemName) {
@@ -342,9 +389,9 @@ public List<brandDate> findBrand() {
     }
     return brandList;
 }
-public List<itemdate> brand(String Id) {
+public List<saledate> brand(String Id) {
     Connection conn = null;
-    List<itemdate> itemList = new ArrayList<itemdate>();
+    List<saledate> itemList = new ArrayList<saledate>();
 
     try {
         // データベースへ接続
@@ -352,7 +399,7 @@ public List<itemdate> brand(String Id) {
 
      // SELECT文を準備
         // TODO: 未実装：管理者以外を取得するようSQLを変更する
-        String sql = "select*from w_brand inner join w_item on w_brand.brand_name = w_item.brand_name WHERE w_brand.id="+Id;
+        String sql = "select*from w_brand inner join w_item on w_brand.brand_name = w_item.brand_name left outer join w_sale on w_item.brand_name=w_sale.brand_name AND w_sale.start_date<= now() AND now() <= w_sale.finish_date WHERE w_brand.id="+Id;
 
          // SELECTを実行し、結果表を取得
         Statement stmt = conn.createStatement();
@@ -362,6 +409,7 @@ public List<itemdate> brand(String Id) {
         // Employeeインスタンスに設定し、ArrayListインスタンスに追加
         while (rs.next()) {
             int id = rs.getInt("id");
+            int ID=rs.getInt("w_item.id");
             String itemName = rs.getString("item_name");
             String detail = rs.getString("detail");
             String price = rs.getString("price");
@@ -369,10 +417,28 @@ public List<itemdate> brand(String Id) {
             String createDate = rs.getString("create_date");
             Date updateDate = rs.getDate("update_date");
             String fileName2 = rs.getString("w_item.file_name");
-            itemdate item = new itemdate(id, itemName, detail, price, fileName, createDate, updateDate,fileName2);
+            String sale = rs.getString("sale");
+            String startDate = rs.getString("start_date");
+            String finishDate = rs.getString("finish_date");
+            if(sale!=null){
 
-            itemList.add(item);
+                int p=Integer.parseInt(price);
+    			int s=Integer.parseInt(sale);
+    			double s2=(double)(100-s)/100;
+    			int saleprice=(int)((int)p*s2);
+
+    			saledate item = new saledate(ID, itemName, detail, price, fileName2, createDate, updateDate,sale,startDate,finishDate,saleprice);
+
+    			itemList.add(item);
+
+                }else {
+
+                saledate item = new saledate(ID, itemName, detail, price, fileName2, createDate, updateDate,sale,startDate,finishDate);
+
+                itemList.add(item);
+            }
         }
+
     } catch (SQLException e) {
         e.printStackTrace();
         return null;

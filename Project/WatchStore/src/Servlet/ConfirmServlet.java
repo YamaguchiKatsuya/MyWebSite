@@ -13,7 +13,7 @@ import javax.servlet.http.HttpSession;
 
 import dao.Itemdao;
 import dao.dbmethoddao;
-import model.itemdate;
+import model.saledate;
 
 /**
  * Servlet implementation class ConfirmServlet
@@ -50,7 +50,7 @@ public class ConfirmServlet extends HttpServlet {
 			request.setAttribute("userSelectDMB", userSelectDMB);
 			System.out.println(userSelectDMB.getId());
 
-			ArrayList<itemdate> cart = (ArrayList<itemdate>) session.getAttribute("cart");
+			ArrayList<saledate> cart = (ArrayList<saledate>) session.getAttribute("cart");
 			//合計金額
 			int totalPrice = Itemdao.getTotalItemPrice(cart);
 			request.setAttribute("totalPrice", totalPrice);

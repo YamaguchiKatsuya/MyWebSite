@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import model.itemdate;
+import model.saledate;
 
 /**
  * Servlet implementation class CartServlet
@@ -39,10 +39,10 @@ public class CartServlet extends HttpServlet {
 
 		}else {
 
-			ArrayList<itemdate> cart = (ArrayList<itemdate>) session.getAttribute("cart");
+			ArrayList<saledate> cart = (ArrayList<saledate>) session.getAttribute("cart");
 			//セッションにカートがない場合カートを作成
 			if (cart == null) {
-				cart = new ArrayList<itemdate>();
+				cart = new ArrayList<saledate>();
 				session.setAttribute("cart", cart);
 			}
 

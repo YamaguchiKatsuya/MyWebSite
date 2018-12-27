@@ -33,7 +33,12 @@
 		<div class="col s6">
 			<h3 class="center">${itemDate.itemName}</h3>
 			<br>
-			<h4 class="center"><fmt:formatNumber value="${itemDate.price}" pattern="###,###" />円</h4>
+			<h4 class="center">
+			<fmt:formatNumber value="${itemDate.price}" pattern="###,###" />円<br>
+			<c:if test="${itemDate.sale!=null}" >
+			→<fmt:formatNumber value="${itemDate.saleprice}" pattern="###,###" />円
+			</c:if>
+			</h4>
 			<br>
 			<h5 class="center">${itemDate.detail}</h5>
 			<br>

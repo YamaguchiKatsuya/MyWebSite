@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import dao.Itemdao;
 import model.itemdate;
+import model.saledate;
 
 /**
  * Servlet implementation class SearchServlet
@@ -35,7 +36,7 @@ public class SearchServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		Itemdao itemdao = new Itemdao();
-		List<itemdate> itemList = itemdao.findAll();
+		List<saledate> itemList = itemdao.findAll();
 
 		// リクエストスコープにユーザ一覧情報をセット
 		request.setAttribute("itemList", itemList);

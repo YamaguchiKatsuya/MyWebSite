@@ -59,7 +59,14 @@
 					<c:forEach var="item" items="${cart}">
 						<tr>
 							<td class="center large">${item.itemName}</td>
-							<td class="center large"><fmt:formatNumber value="${item.price}" pattern="###,###" /></td>
+							<td class="center large">
+							<c:if test="${item.sale!=null}">
+									<fmt:formatNumber value="${item.saleprice}" pattern="###,###" />円
+							</c:if>
+			 				<c:if test="${item.sale==null}">
+									<fmt:formatNumber value="${item.price}" pattern="###,###" />円
+							</c:if>
+							</td>
 						</tr>
 					</c:forEach>
 					<tr>

@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import dao.ItemDetaildao;
-import model.itemdate;
+import model.saledate;
 
 /**
  * Servlet implementation class ItemDetailServlet
@@ -38,7 +38,7 @@ public class ItemDetailServlet extends HttpServlet {
 
 		String id = request.getParameter("id");
 		ItemDetaildao ItemDetaildao = new ItemDetaildao();
-		itemdate item = ItemDetaildao.findById(id);
+		saledate item = ItemDetaildao.findById(id);
 
 		/** テーブルに該当のデータが見つかった場合 **/
 		// セッションにユーザの情報をセット
@@ -58,14 +58,19 @@ public class ItemDetailServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		HttpSession session = request.getSession();
 
+		if(session.getAttribute("userInfo")==null){
+			response.sendRedirect("LoginServlet");
+
+		}else {
+
 		String id = request.getParameter("id");
 		System.out.println(id);
 		ItemDetaildao ItemDetaildao = new ItemDetaildao();
-		itemdate item = ItemDetaildao.findById(id);
+		saledate item = ItemDetaildao.findById(id);
 
-		ArrayList<itemdate> cart = (ArrayList<itemdate>) session.getAttribute("cart");
+		ArrayList<saledate> cart = (ArrayList<saledate>) session.getAttribute("cart");
 		if (cart == null) {
-			cart = new ArrayList<itemdate>();
+			cart = new ArrayList<saledate>();
 		}
 		//カートに商品を追加。
 		cart.add(item);
@@ -75,4 +80,5 @@ public class ItemDetailServlet extends HttpServlet {
 		response.sendRedirect("CartServlet");
 	}
 
+}
 }

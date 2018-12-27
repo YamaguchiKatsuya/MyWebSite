@@ -17,7 +17,7 @@ import dao.buydao;
 import dao.dbmethoddao;
 import model.buyDetail;
 import model.buydate;
-import model.itemdate;
+import model.saledate;
 import model.userdate;
 
 /**
@@ -55,7 +55,7 @@ public class BuyResultServlet extends HttpServlet {
 			model.dbmethod userSelectDMB = dbmethoddao.getDeliveryMethodDataBeansByID(Id);
 			request.setAttribute("userSelectDMB", userSelectDMB);
 
-			ArrayList<itemdate> cart = (ArrayList<itemdate>) session.getAttribute("cart");
+			ArrayList<saledate> cart = (ArrayList<saledate>) session.getAttribute("cart");
 			//合計金額
 			int totalPrice = Itemdao.getTotalItemPrice(cart);
 			request.setAttribute("totalPrice", totalPrice);
@@ -65,7 +65,7 @@ public class BuyResultServlet extends HttpServlet {
 
 			buydao buydao=new buydao();
 			int buyId=buydao.buyInfo(userId, totalPrice, Id);
-			for (itemdate cartInItem : cart) {
+			for (saledate cartInItem : cart) {
 				buyDetail bddb = new buyDetail();
 				bddb.setBuyId(buyId);
 				bddb.setItemId(cartInItem.getId());

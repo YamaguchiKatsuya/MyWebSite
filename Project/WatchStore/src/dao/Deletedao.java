@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.itemdate;
+import model.saledate;
 import model.userdate;
 
 public class Deletedao {
@@ -71,6 +72,38 @@ public class Deletedao {
 		}
 
 	}
+	public void deletesale(String Id)  {
+		Connection conn = null;
+		List<saledate> saleList = new ArrayList<saledate>();
+
+		try {
+			// データベースへ接続
+			conn = DBManeger.getConnection();
+
+			// SELECT文を準備
+			// TODO: 未実装：管理者以外を取得するようSQLを変更する
+			String sql = " DELETE FROM w_sale WHERE id=" + Id;
+
+			Statement stmt = conn.createStatement();
+            int rs = stmt.executeUpdate(sql);
+
+		 } catch (SQLException e) {
+	            e.printStackTrace();
+		} finally {
+			// データベース切断
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+
+				}
+			}
+		}
+
+	}
 }
+
+
 
 

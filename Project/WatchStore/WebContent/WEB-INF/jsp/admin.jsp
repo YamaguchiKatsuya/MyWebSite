@@ -47,19 +47,34 @@
 	<div class="row">
 
 	<form action="NewitemServlet" method="GET">
-			<div class="col s6">
+			<div class="col s4">
 				<button class="btn  waves-effect waves-light  col s6 offset-s4"
 					type="submit" name="action">商品登録</button>
 			</div>
 			</form>
+			<form action="NewSaleServlet" method="GET">
+			<div class="col s4">
+				<button class="btn  waves-effect waves-light  col s6 offset-s4"
+					type="submit" name="action">セール登録</button>
+			</div>
+			</form>
 			<form action="NewBrandServlet" method="GET">
-			<div class="col s6">
+			<div class="col s4">
 				<button class="btn  waves-effect waves-light  col s6 offset-s4"
 					type="submit" name="action">ブランド登録</button>
 			</div>
 			</form>
 
 	</div>
+	<br>
+	<div class="row">
+	<form action="SaleListServlet" method="GET">
+			<div class="col s4">
+				<button class="btn  waves-effect waves-light  col s6 offset-s4"
+					type="submit" name="action">セール一覧</button>
+			</div>
+			</form>
+			</div>
 	</div>
 	<br>
 		<br>

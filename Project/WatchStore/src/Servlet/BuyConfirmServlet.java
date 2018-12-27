@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import dao.dbmethoddao;
-import model.itemdate;
+import model.saledate;
 
 /**
  * Servlet implementation class BuyConfirmServlet
@@ -35,7 +35,7 @@ public class BuyConfirmServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
-		ArrayList<itemdate> cart = (ArrayList<itemdate>) session.getAttribute("cart");
+		ArrayList<saledate> cart = (ArrayList<saledate>) session.getAttribute("cart");
 		if(cart.size()==0){
 			response.sendRedirect("CartServlet");
 		}else {

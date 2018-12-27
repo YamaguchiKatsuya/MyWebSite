@@ -41,6 +41,16 @@ public class NewitemServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		HttpSession session = request.getSession();
 
+		if(session.getAttribute("errMsg")!=null){
+
+			String e=(String)session.getAttribute("errMsg");
+
+
+			request.setAttribute("errMsg", e);
+
+			session.removeAttribute("errMsg");
+		}
+
 		if(session.getAttribute("i")!=null){
 
 			itemdate d = (itemdate) session.getAttribute("i");
@@ -65,6 +75,7 @@ public class NewitemServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
+		HttpSession session = request.getSession();
 
         // リクエストパラメータの取得
 		String brandName = request.getParameter("brand_name");
@@ -76,11 +87,10 @@ public class NewitemServlet extends HttpServlet {
 
         if (brandName.equals("")||itemName.equals("")||detail.equals("")||price.equals("")||name.equals("")){
 			// リクエストスコープにエラーメッセージをセット
-		request.setAttribute("errMsg", "入力された内容は正しくありません。");
+		session.setAttribute("errMsg", "入力された内容は正しくありません。");
 
 
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/itemnew.jsp");
-			dispatcher.forward(request, response);
+		response.sendRedirect("NewitemServlet");
 			return;
 		}
 
@@ -93,7 +103,7 @@ public class NewitemServlet extends HttpServlet {
 		itemdate item=new itemdate(brandName,itemName,detail,price,name,name2);
 
 
-		HttpSession session = request.getSession();session.setAttribute("item", item);
+		session.setAttribute("item", item);
 
 
 		// 画像反映まち

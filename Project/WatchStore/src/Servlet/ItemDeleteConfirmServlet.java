@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import dao.ItemDetaildao;
-import model.itemdate;
+import model.saledate;
 
 /**
  * Servlet implementation class ItemDeleteConfirmServlet
@@ -36,7 +36,7 @@ public class ItemDeleteConfirmServlet extends HttpServlet {
 
 		String id = request.getParameter("id");
 		ItemDetaildao ItemDetaildao = new ItemDetaildao();
-		itemdate item = ItemDetaildao.findById(id);
+		saledate item = ItemDetaildao.findById(id);
 
 		/** テーブルに該当のデータが見つかった場合 **/
 		// セッションにユーザの情報をセット

@@ -6,18 +6,18 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Date;
 
-import model.itemdate;
+import model.saledate;
 
 
 public class ItemDetaildao {
-	public itemdate findById(String Id) {
+	public saledate findById(String Id) {
         Connection conn = null;
         try {
             // データベースへ接続
             conn = DBManeger.getConnection();
 
             // SELECT文を準備
-            String sql = "SELECT * FROM w_item WHERE id = "+Id ;
+            String sql = "select * from w_item left outer join w_sale on w_item.brand_name=w_sale.brand_name AND w_sale.start_date<= now() AND now() <= w_sale.finish_date WHERE w_item.id = "+Id ;
              // SELECTを実行し、結果表を取得
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(sql);
@@ -33,8 +33,23 @@ public class ItemDetaildao {
             String fileName = rs.getString("file_name");
             String createDate = rs.getString("create_date");
             Date updateDate = rs.getDate("update_date");
-            return new itemdate(id, itemName, detail, price, fileName, createDate, updateDate);
+            String sale = rs.getString("sale");
+            String startDate = rs.getString("start_date");
+            String finishDate = rs.getString("finish_date");
 
+            if(sale!=null){
+
+            int p=Integer.parseInt(price);
+			int s=Integer.parseInt(sale);
+			double s2=(double)(100-s)/100;
+			int saleprice=(int)((int)p*s2);
+
+            return new saledate (id, itemName, detail, price, fileName, createDate, updateDate,sale,startDate,finishDate,saleprice);
+
+            }else {
+
+        	return new saledate(id, itemName, detail, price, fileName, createDate, updateDate,sale,startDate,finishDate);
+            }
 
         } catch (SQLException e) {
             e.printStackTrace();

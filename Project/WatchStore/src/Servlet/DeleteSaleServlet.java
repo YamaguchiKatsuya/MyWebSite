@@ -1,7 +1,6 @@
 package Servlet;
 
 import java.io.IOException;
-import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -11,21 +10,20 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import dao.Itemdao;
-import model.brandDate;
+import dao.saledao;
 import model.saledate;
 
 /**
- * Servlet implementation class BrandServlet
+ * Servlet implementation class DeleteSaleServlet
  */
-@WebServlet("/BrandServlet")
-public class BrandServlet extends HttpServlet {
+@WebServlet("/DeleteSaleServlet")
+public class DeleteSaleServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public BrandServlet() {
+    public DeleteSaleServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -34,23 +32,18 @@ public class BrandServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("UTF-8");
 		HttpSession session = request.getSession();
-		Itemdao itemdao = new Itemdao();
+
 		String id = request.getParameter("id");
-		brandDate date=itemdao.findBrand(id);
-		request.setAttribute("date", date);
+		saledao saledao = new saledao();
+		saledate saledate = saledao.findById(id);
 
-		List<saledate> brand=itemdao.brand(id);
+		/** テーブルに該当のデータが見つかった場合 **/
+		// セッションにユーザの情報をセット
+		request.setAttribute("saledate", saledate);
 
-
-		request.setAttribute("brand", brand);
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/Brand.jsp");
-		dispatcher.forward(request, response);
-
-
-
-		}
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/SaleDelete.jsp");
+		dispatcher.forward(request, response);}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)

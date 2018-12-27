@@ -15,7 +15,7 @@ import javax.servlet.http.Part;
 
 import dao.ItemDetaildao;
 import dao.Updatedao;
-import model.itemdate;
+import model.saledate;
 
 /**
  * Servlet implementation class ItemUpdateServlet
@@ -42,7 +42,7 @@ public class ItemUpdateServlet extends HttpServlet {
 
 		String id = request.getParameter("id");
 		ItemDetaildao ItemDetaildao = new ItemDetaildao();
-		itemdate item = ItemDetaildao.findById(id);
+		saledate item = ItemDetaildao.findById(id);
 
 		/** テーブルに該当のデータが見つかった場合 **/
 		// セッションにユーザの情報をセット
@@ -77,7 +77,7 @@ public class ItemUpdateServlet extends HttpServlet {
 
 		String Id = request.getParameter("id");
 		ItemDetaildao ItemDetaildao = new ItemDetaildao();
-		itemdate item = ItemDetaildao.findById(Id);
+		saledate item = ItemDetaildao.findById(Id);
 
 		/** テーブルに該当のデータが見つかった場合 **/
 		// セッションにユーザの情報をセット
